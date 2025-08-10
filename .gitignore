@@ -1,0 +1,9 @@
+*.bak
+
+
+/chromium/*
+/VSCodium/*
+OpenRGB/logs/*
+session/*
+dconf/user
+kde.org/*

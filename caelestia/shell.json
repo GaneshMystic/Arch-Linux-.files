@@ -26,7 +26,7 @@
         },
         "transparency": {
             "enabled": false,
-            "base": 0.85,
+            "base": 0.75,
             "layers": 0.4
         }
     },
@@ -63,8 +63,8 @@
         }
     },
     "border": {
-        "rounding": 25,
-        "thickness": 10
+        "rounding": 16,
+        "thickness": 8
     },
     "dashboard": {
         "enabled": true,

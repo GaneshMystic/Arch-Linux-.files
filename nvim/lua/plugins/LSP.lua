@@ -6,7 +6,7 @@ return {
 		config = function()
 			require("mason").setup(
 				{
-					install_root_dir = "K:/NeoVim/mason",
+					-- install_root_dir = "K:/NeoVim/mason",
 					ui = {
 						icons = {
 							package_installed = "✓",
@@ -27,7 +27,6 @@ return {
 			"neovim/nvim-lspconfig",
 		},
 		config = function()
-
 			local on_attach = function(client, bufnr)
 				cmp_nvim_lsp.default_capabilities()
 				null_ls.on_attach(client, bufnr)
@@ -37,7 +36,7 @@ return {
 				{
 					ensure_installed = {
 						"ts_ls",
-						"lua_ls",
+						-- "lua_ls",
 						-- "clangd"
 					},
 					automatic_installation = true,
@@ -59,13 +58,13 @@ return {
 
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(args)
-					local client = vim.lsp.get_client_by_id(args.data.client_id) 
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
 					if not client then return end
 					if client.supports_method('textDocument/formatting') then
 						vim.api.nvim_create_autocmd("BufWritePre", {
 							buffer = args.buf,
 							callback = function()
-								vim.lsp.buf.format({ bufnr= args.buf, id= client.id })
+								vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
 							end,
 						})
 					end
@@ -102,5 +101,13 @@ return {
 			fuzzy = { implementation = "prefer_rust_with_warning" }
 		},
 		opts_extend = { "sources.default" }
+	},
+
+	{
+		"henriklovhaug/Preview.nvim",
+		cmd = { "Preview" },
+		config = function()
+			require("preview").setup()
+		end,
 	},
 }

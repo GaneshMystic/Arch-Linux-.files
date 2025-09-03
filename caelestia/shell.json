@@ -26,18 +26,27 @@
         },
         "transparency": {
             "enabled": false,
-            "base": 0.75,
+            "base": 0.5,
             "layers": 0.4
         }
     },
     "general": {
         "apps": {
-            "terminal": ["foot"],
+            "terminal": ["kitty"],
             "audio": ["pavucontrol"]
         }
     },
     "background": {
-        "enabled": true
+        "enabled": true,        
+        "desktopClock": {
+            "enabled": true
+        },
+        "visualiser": {
+            "enabled": false,
+            "autoHide": true,
+            "rounding": 1,
+            "spacing": 1
+        }
     },
     "bar": {
         "dragThreshold": 20,
@@ -52,19 +61,19 @@
         },
         "workspaces": {
             "activeIndicator": true,
-            "activeLabel": "󰮯 ",
+            "activeLabel": "󰮯",
             "activeTrail": false,
-            "label": "  ",
+            "label": "",
             "occupiedBg": false,
-            "occupiedLabel": "󰮯 ",
+            "occupiedLabel": "󰮯",
             "rounded": true,
             "showWindows": true,
             "shown": 5
         }
     },
     "border": {
-        "rounding": 16,
-        "thickness": 8
+        "rounding": 12,
+        "thickness": 6
     },
     "dashboard": {
         "enabled": true,
@@ -74,7 +83,7 @@
         "visualiserBars": 45
     },
     "launcher": {
-        "actionPrefix": ">",
+        "actionPrefix": ":",
         "dragThreshold": 50,
         "vimKeybinds": false,
         "enableDangerousActions": false,

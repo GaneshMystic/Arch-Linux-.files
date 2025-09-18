@@ -2,50 +2,30 @@
 require("config.lazy")
 
 
+local autocmd = vim.api.nvim_create_autocmd
 
+-- user event that loads after UIEnter + only if file buf is there
+autocmd({ "UIEnter", "BufReadPost", "BufNewFile" }, {
+  group = vim.api.nvim_create_augroup("NvFilePost", { clear = true }),
+  callback = function(args)
+    local file = vim.api.nvim_buf_get_name(args.buf)
+    local buftype = vim.api.nvim_get_option_value("buftype", { buf = args.buf })
 
+    if not vim.g.ui_entered and args.event == "UIEnter" then
+      vim.g.ui_entered = true
+    end
 
--- vim.call("plug#begin")
+    if file ~= "" and buftype ~= "nofile" and vim.g.ui_entered then
+      vim.api.nvim_exec_autocmds("User", { pattern = "FilePost", modeline = false })
+      vim.api.nvim_del_augroup_by_name "NvFilePost"
 
--- --vscode theme
--- Plug()
--- Plug()
+      vim.schedule(function()
+        vim.api.nvim_exec_autocmds("FileType", {})
 
--- --file finder
--- Plug("nvim-lua/plenary.nvim") -- 🔧 Required dependency for telescope
--- Plug("nvim-telescope/telescope.nvim", {["tag"] = "0.1.8"})
-
--- --git
--- Plug()
--- Plug()
-
--- --lsp
--- Plug()
--- Plug()
--- Plug("neovim/nvim-lspconfig")
-
--- --code completion
--- Plug("hrsh7th/nvim-cmp")
--- Plug("hrsh7th/cmp-nvim-lsp")
-
--- --format code
--- --Plug('jose-elias-alvarez/null-ls.nvim')
--- --Plug("stevearc/conform.nvim")
-
--- --Debug code
--- Plug('mfussenegger/nvim-dap')
--- Plug('jay-babu/mason-nvim-dap.nvim')
--- Plug('nvim-neotest/nvim-nio')
--- Plug('rcarriga/nvim-dap-ui')
-
--- --info
--- Plug("liuchengxu/vim-which-key")
-
--- --file explorer
--- Plug("") --file explorer
-
--- --Quality of Life
--- Plug() --splash screen
--- Plug("nvim-tree/nvim-web-devicons") --splash screen icons
-
--- vim.call("plug#end")
+        if vim.g.editorconfig then
+          require("editorconfig").config(args.buf)
+        end
+      end)
+    end
+  end,
+})

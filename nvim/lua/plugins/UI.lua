@@ -22,7 +22,7 @@ return {
 			)
 
 			vim.cmd.colorscheme("vscode")
-			vim.o.background = "dark"       -- or 'light'
+			vim.o.background = "dark" -- or 'light'
 		end
 	},
 	{
@@ -90,13 +90,88 @@ return {
 				desc = "Buffer Local Keymaps (which-key)",
 			},
 		},
-	}
-	-- {
-	--     "nvzone/volt",
-	--     lazy = true
-	-- },
-	-- {
-	--     "nvzone/minty",
-	--     cmd = { "Shades", "Huefy" },
-	-- }
+	},
+	-- autopairing of (){}[] etc
+{
+    "windwp/nvim-autopairs",
+    opts = {
+        fast_wrap = {},
+        disable_filetype = { "TelescopePrompt", "vim" },
+    },
+    config = function(_, opts)
+        require("nvim-autopairs").setup(opts)
+    end,
+},
+{
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    opts = {},
+	config= function(_, opts)
+		local highlight = {
+			"RainbowRed",
+			"RainbowYellow",
+			"RainbowBlue",
+			"RainbowGreen",
+			"RainbowOrange",
+			"RainbowCyan",
+		}
+
+		local hooks = require "ibl.hooks"
+		hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+			vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#C678DD" })    
+			vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" }) 
+			vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })   
+			vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })  
+			vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" }) 
+			vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })   
+		end)
+
+		-- vim.g.rainbow_delimiters = { highlight = highlight }
+		require("ibl").setup { indent = { char = "▏"}, scope = {char = "▏", highlight = highlight } }
+	end,
+},
+{
+  'HiPhish/rainbow-delimiters.nvim',
+  event = 'VeryLazy',
+  config = function()
+    require('rainbow-delimiters.setup').setup({
+      -- Optional: Configure the strategy and queries if needed
+      strategy = {
+        'nvim-treesitter',
+      }
+    })
+  end
+},
+{
+    "nvim-treesitter/nvim-treesitter",
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
+    build = ":TSUpdate",
+    opts = function()
+        return {
+            ensure_installed = {
+                "lua",
+                "vim",
+                "vimdoc",
+                "html",
+                "css",
+                "javascript",
+                "typescript", 
+                "tsx",
+                "python",
+                "json"
+            },
+            highlight = {
+                enable = true, -- Must be enabled for IBL to work correctly
+                use_languagetree = true,
+            },
+            indent = {
+                enable = true, -- Must be enabled for IBL to work correctly
+            },
+        }
+    end,
+    config = function(_, opts)
+        require("nvim-treesitter.configs").setup(opts)
+    end,
+}
 }

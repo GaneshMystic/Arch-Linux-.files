@@ -1,3 +1,7 @@
-
 [Default Applications]
 x-scheme-handler/discord-1038970224050962582=nuclear.desktop
+application/zip=userapp-7z-TQLFC3.desktop
+
+[Added Associations]
+application/zip=userapp-7z-TQLFC3.desktop;
+text/html=org.qutebrowser.qutebrowser.desktop;

@@ -6,6 +6,5 @@
 
 config_version: 2
 settings:
-  url.searchengines:
-    global:
-      DEFAULT: https://google.com/?q={}
+  content.javascript.clipboard:
+    https://gemini.google.com: access-paste

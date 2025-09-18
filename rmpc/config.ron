@@ -19,7 +19,7 @@
         method: Auto,
         max_size_px: (width: 256, height: 256),
         disabled_protocols: ["http://", "https://"],
-        vertical_align: Center,
+        vertical_align: Bottom,
         horizontal_align: Center,
     ),
     keybinds: (

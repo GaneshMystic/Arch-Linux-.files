@@ -6,7 +6,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out,                            "WarningMsg" },
+			{ out, "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -16,26 +16,22 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 --===========================My Configurations====================
-vim.api.nvim_create_user_command(
-	"ToggleRelNum",
-	function()
-		vim.opt.relativenumber = not vim.opt.relativenumber:get()
-	end,
-	{}
-)
+vim.api.nvim_create_user_command("ToggleRelNum", function()
+	vim.opt.relativenumber = not vim.opt.relativenumber:get()
+end, {})
 vim.g.mapleader = " "
 vim.opt.number = true
 vim.opt.relativenumber = false
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
-local map = vim.keymap.set;
+local map = vim.keymap.set
 
 map("i", "jj", "<Esc>", { silent = true })
 map("n", "<leader>rel", ":ToggleRelNum<CR>", { desc = "Toggle relative numbers" })
 map("n", "<leader>m", ":mark<CR>", { desc = "Mark current line" })
 map("n", "<leader>rs", vim.lsp.buf.rename)
-map('n', '<leader>gd', vim.lsp.buf.definition, { noremap = true, silent = true })
+map("n", "<leader>gd", vim.lsp.buf.definition, { noremap = true, silent = true })
 
 --alt up or down to move
 map("n", "<M-j>", ":m .+1<CR>==", { desc = "Move line down" })
@@ -48,6 +44,14 @@ map("n", "<C-h>", "<C-w>h", { desc = "switch window left" })
 map("n", "<C-l>", "<C-w>l", { desc = "switch window right" })
 map("n", "<C-j>", "<C-w>j", { desc = "switch window down" })
 map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
+
+-- terminal
+map(
+	"n",
+	"<leader>t",
+	":botright split term://fish<CR>",
+	{ desc = "Open terminal (horizontal split) with fish at the bottom" }
+)
 
 -- -- telescope
 -- map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })
@@ -62,7 +66,6 @@ map("n", "<C-k>", "<C-w>k", { desc = "switch window up" })
 
 --===========================My Configurations====================
 
-
 -- Setup lazy.nvim
 require("lazy").setup({
 	spec = {
@@ -71,4 +74,3 @@ require("lazy").setup({
 	install = { colorscheme = { "habamax" } },
 	checker = { enabled = true },
 })
-

@@ -210,8 +210,9 @@ return {
 					type = "codelldb",
 					request = "launch",
 					program = function()
-						-- The path to your compiled C++ executable
-						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+						-- The path to your compiled C++ executable ==================================================================================
+						-- return vim.fn.input("Path to executable ", vim.fn.getcwd() .. "/", "file")
+						return vim.fn.getcwd() .. "/build/my_project"
 					end,
 					cwd = "${workspaceFolder}",
 					stopOnEntry = false,
@@ -221,6 +222,12 @@ return {
 
 			map("n", "<leader>db", ":DapToggleBreakpoint<CR>", { desc = "Add Breakpoint" })
 			map("n", "<leader>dr", ":DapContinue<CR>", { desc = "Start or Continue Debugging" })
+		end,
+	},
+	{
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
 		end,
 	},
 }

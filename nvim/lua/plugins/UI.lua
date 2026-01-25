@@ -132,7 +132,8 @@ return {
 			require("rainbow-delimiters.setup").setup({
 				-- Optional: Configure the strategy and queries if needed
 				strategy = {
-					"nvim-treesitter",
+
+					"nvim-treesitter/nvim-treesitter",
 				},
 			})
 		end,
@@ -165,8 +166,6 @@ return {
 				},
 			}
 		end,
-		config = function(_, opts)
-			require("nvim-treesitter.configs").setup(opts)
-		end,
+
 	},
 }

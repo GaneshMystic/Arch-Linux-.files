@@ -7,6 +7,7 @@ return {
 	},
 	{
 		'isakbm/gitgraph.nvim',
+    dependencies = { 'sindrets/diffview.nvim' },
 		opts = {
 			git_cmd = "git",
 			format = {

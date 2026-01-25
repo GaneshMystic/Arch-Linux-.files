@@ -3,7 +3,7 @@ return {
 		"nvim-tree/nvim-tree.lua",
 		lazy = true,
 		priority = 900,
-		dependencies = { 'nvim-web-devicons' },
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		keys = {
 			{ "<leader>e",  "<cmd>NvimTreeToggle<CR>", desc = "Toggle file explorer" },
 			{ "<leader>fe", "<cmd>NvimTreeFocus<CR>",  desc = "Focus file explorer" },

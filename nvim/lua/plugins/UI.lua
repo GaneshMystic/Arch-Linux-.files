@@ -28,7 +28,7 @@ return {
 				disable_nvimtree_bg = true,
 				terminal_colors = true,
 				color_overrides = {
-					vscLineNumber = "#FFFFFF",
+					vscLineNumber = "#555555",
 				},
 				group_overrides = {
 					Cursor = { fg = c.vscDarkBlue, bg = c.vscLightGreen, bold = true },
@@ -43,7 +43,79 @@ return {
 		lazy = false,
 		priority = 999,
 		config = function()
-			require("lualine").setup()
+			require("lualine").setup({
+				options = {
+					theme = "vscode",
+				},
+			})
+		end,
+	},
+
+	{
+		"akinsho/bufferline.nvim",
+		version = "*",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		config = function()
+			require("bufferline").setup({
+				options = {
+					buffer_close_icon = "󰅖",
+					close_icon = "󰅖",
+					close_command = "bdelete! %d",
+					right_mouse_command = "bdelete! %d",
+					indicator = {
+						style = "icon",
+						icon = " ",
+					},
+					modified_icon = "●",
+					offsets = { { filetype = "NvimTree", text = "EXPLORER", text_align = "center" } },
+					left_trunc_marker = "",
+					right_trunc_marker = "",
+					show_close_icon = false,
+					show_tab_indicators = true,
+				},
+				highlights = {
+					fill = {
+						fg = { attribute = "fg", highlight = "Normal" },
+						bg = { attribute = "bg", highlight = "StatusLineNC" },
+					},
+					background = {
+						fg = { attribute = "fg", highlight = "Normal" },
+						bg = { attribute = "bg", highlight = "StatusLine" },
+					},
+					buffer_visible = {
+						fg = { attribute = "fg", highlight = "Normal" },
+						bg = { attribute = "bg", highlight = "Normal" },
+					},
+					buffer_selected = {
+						fg = { attribute = "fg", highlight = "Normal" },
+						bg = { attribute = "bg", highlight = "Normal" },
+					},
+					separator = {
+						fg = { attribute = "bg", highlight = "Normal" },
+						bg = { attribute = "bg", highlight = "StatusLine" },
+					},
+					separator_selected = {
+						fg = { attribute = "fg", highlight = "Special" },
+						bg = { attribute = "bg", highlight = "Normal" },
+					},
+					separator_visible = {
+						fg = { attribute = "fg", highlight = "Normal" },
+						bg = { attribute = "bg", highlight = "StatusLineNC" },
+					},
+					close_button = {
+						fg = { attribute = "fg", highlight = "Normal" },
+						bg = { attribute = "bg", highlight = "StatusLine" },
+					},
+					close_button_selected = {
+						fg = { attribute = "fg", highlight = "Normal" },
+						bg = { attribute = "bg", highlight = "Normal" },
+					},
+					close_button_visible = {
+						fg = { attribute = "fg", highlight = "Normal" },
+						bg = { attribute = "bg", highlight = "Normal" },
+					},
+				},
+			})
 		end,
 	},
 	{
@@ -87,11 +159,6 @@ return {
 		"folke/which-key.nvim",
 		lazy = true,
 		event = "VeryLazy",
-		opts = {
-			-- your configuration comes here
-			-- or leave it empty to use the default settings
-			-- refer to the configuration section below
-		},
 		keys = {
 			{
 				"<leader>?",
@@ -146,9 +213,7 @@ return {
 		event = "VeryLazy",
 		config = function()
 			require("rainbow-delimiters.setup").setup({
-				-- Optional: Configure the strategy and queries if needed
 				strategy = {
-
 					"nvim-treesitter/nvim-treesitter",
 				},
 			})
@@ -158,7 +223,7 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		event = { "BufReadPost", "BufNewFile" },
 		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
-		build = ":TSUpdate",
+		build = ":TSUpdate | TSInstallAll",
 		opts = function()
 			return {
 				ensure_installed = {
@@ -172,15 +237,38 @@ return {
 					"tsx",
 					"python",
 					"json",
+					"go",
+					"gomod",
+					"gowork",
+					"gosum",
 				},
 				highlight = {
-					enable = true, -- Must be enabled for IBL to work correctly
-					use_languagetree = true,
+					enable = true,
+					--use_languagetree = true,
 				},
 				indent = {
-					enable = true, -- Must be enabled for IBL to work correctly
+					enable = true,
 				},
 			}
+		end,
+	},
+	{ "nvzone/volt", lazy = true },
+	{
+		"nvzone/menu",
+		config = function()
+			local map = vim.keymap.set
+
+			map("n", "<leader>m", function()
+				require("menu").open("default")
+			end, { desc = "Open Context Menu" })
+			map({ "n", "v" }, "<RightMouse>", function()
+				require("menu.utils").delete_old_menus()
+				vim.cmd.exec('"normal! \\<RightMouse>"')
+				local mouse = vim.fn.getmousepos()
+				local buf = vim.api.nvim_win_get_buf(mouse.winid)
+				local options = vim.bo[buf].ft == "NvimTree" and "nvimtree" or "default"
+				require("menu").open(options, { mouse = true })
+			end, { desc = "Context Menu (Mouse)" })
 		end,
 	},
 }

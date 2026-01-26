@@ -1,7 +1,6 @@
 if status is-interactive
     # --- Settings ---
     set -g fish_greeting ""
-
     # --- Yazi Function ---
     function y
         set tmp (mktemp -t "yazi-cwd.XXXXXX")
@@ -30,9 +29,13 @@ if test -z "$SSH_AUTH_SOCK"
 end
 
 
+set -gx EDITOR nvim
+set -gx VISUAL nvim
+
 #command to clean up directory
 alias cleanup='sudo pacman -Rns (pacman -Qdtq); sudo paccache -r; sudo journalctl --vacuum-time=3d'
-
+# tmux with conf
+		alias -s tmux='tmux -f ~/.config/tmux/tmux.conf'
     # --- Aliases ---
     alias ls='ls --color=auto'
     alias v='nvim'

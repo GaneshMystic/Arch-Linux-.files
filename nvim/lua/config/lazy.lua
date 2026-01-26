@@ -25,6 +25,7 @@ vim.opt.relativenumber = false
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
+vim.opt.clipboard = "unnamedplus"
 local map = vim.keymap.set
 
 function _G.ToggleTheme()
@@ -35,8 +36,8 @@ function _G.ToggleTheme()
 	end
 end
 
-map("n", "<leader>tt", "<cmd>lua ToggleTheme()<CR>", { desc = "Toggle Theme" })
 map("i", "jj", "<Esc>", { silent = true })
+map("n", "<leader>tt", "<cmd>lua ToggleTheme()<CR>", { desc = "Toggle Theme" })
 map("n", "<leader>rel", ":ToggleRelNum<CR>", { desc = "Toggle relative numbers" })
 map("n", "<leader>m", ":mark<CR>", { desc = "Mark current line" })
 map("n", "<leader>rs", vim.lsp.buf.rename)
@@ -82,6 +83,14 @@ end
 
 -- Add the build shortcut
 vim.keymap.set("n", "<leader>b", project_build, { desc = "Run project-specific build script" })
+
+-- git
+vim.keymap.set("n", "<leader>gc", function()
+	local msg = vim.fn.input("Commit Message: ")
+	if msg ~= "" then
+		vim.cmd("!git commit -m " .. vim.fn.shellescape(msg))
+	end
+end, { desc = "Git Commit" })
 
 -- -- telescope
 -- map("n", "<leader>fw", "<cmd>Telescope live_grep<CR>", { desc = "telescope live grep" })

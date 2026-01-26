@@ -12,7 +12,7 @@
     "font": {
       "family": {
 				"material": "Material Symbols Rounded",
-        "mono": "JetBrains Mono NF",
+				"mono": "JetBrains Mono NF",
         "sans": "IBM Plex Sans",
         "clock": "Rubik"
       },
@@ -27,8 +27,8 @@
     },
     "transparency": {
       "enabled": false,
-      "base": 0.85,
-      "layers": 0.4
+      "base": 0.01925480077675469,
+      "layers": 0.46220736838319887
     }
   },
   "general": {
@@ -43,7 +43,7 @@
         "mpv"
       ],
       "explorer": [
-        "thunar"
+        "yazi"
       ]
     },
     "idle": {
@@ -128,22 +128,22 @@
       "showWindowsOnSpecialWorkspaces": true,
       "activeTrail": false,
       "perMonitorWorkspaces": true,
-      "label": "  ",
+      "label": " ",
       "occupiedLabel": "󰮯",
       "activeLabel": "󰮯",
       "capitalisation": "preserve",
       "specialWorkspaceIcons": []
     },
     "tray": {
-      "background": false,
+      "background": true,
       "recolour": false,
       "compact": false,
       "iconSubs": []
     },
     "status": {
-      "showAudio": false,
-      "showMicrophone": false,
-      "showKbLayout": false,
+      "showAudio": true,
+      "showMicrophone": true,
+      "showKbLayout": true,
       "showNetwork": true,
       "showBluetooth": true,
       "showBattery": true,
@@ -197,10 +197,10 @@
         "id": "power"
       }
     ]
-  },    
-	"border": {
-        "rounding": 12,
-        "thickness": 6
+  },
+  "border": {
+    "thickness": 4,
+    "rounding": 12
   },
   "dashboard": {
     "enabled": true,
@@ -235,7 +235,7 @@
     "maxShown": 7,
     "maxWallpapers": 9,
     "specialPrefix": "@",
-    "actionPrefix": ">",
+    "actionPrefix": ":",
     "enableDangerousActions": false,
     "dragThreshold": 50,
     "vimKeybinds": false,

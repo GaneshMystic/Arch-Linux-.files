@@ -5,11 +5,10 @@ return {
 		priority = 300,
 		opts = {
 			ensure_installed = {
-				"clangd",
-				"ts_ls",
-				"clang-format",
-				"codelldb",
-				"prettier",
+				--"clangd",
+				--"clang-format",
+				-- "codelldb",
+				-- "prettier",
 				"stylua",
 				"black",
 			},
@@ -47,8 +46,8 @@ return {
 
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-					"ts_ls",
-					"clangd",
+					-- "ts_ls",
+					-- "clangd",
 					-- "lua_ls",
 				},
 				automatic_installation = true,
@@ -81,9 +80,7 @@ return {
 						})
 					end
 
-					map("n", "<leader>vd", vim.diagnostic.open_float, { buffer = args.buf, desc = "Diagnostic float" })
-					map("n", "[d", vim.diagnostic.goto_prev, { buffer = args.buf, desc = "Previous Diagnostic" })
-					map("n", "]d", vim.diagnostic.goto_next, { buffer = args.buf, desc = "Next Diagnostic" })
+					map("n", "<leader>ed", vim.diagnostic.open_float, { buffer = args.buf, desc = "Diagnostics" })
 				end,
 			})
 		end,
@@ -175,7 +172,9 @@ return {
 		},
 		config = function()
 			require("mason-nvim-dap").setup({
-				ensure_installed = { "codelldb" },
+				ensure_installed = {
+					"codelldb",
+				},
 			})
 		end,
 	},

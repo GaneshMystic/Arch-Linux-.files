@@ -27,6 +27,23 @@ vim.diagnostic.config({
 	},
 })
 
+-------------------- Debug UI---------------------
+-- local signs = {
+-- 	DapBreakpoint = { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" },
+-- 	DapBreakpointCondition = { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" },
+-- 	DapLogPoint = { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" },
+-- }
+--
+-- for name, opts in pairs(signs) do
+-- 	vim.fn.sign_define(name, opts)
+-- end
+--
+-- -- Set the color for the red dot (if your colorscheme doesn't provide it)
+-- vim.api.nvim_set_hl(0, "DapBreakpoint", { fg = "#e51400" })
+-- vim.api.nvim_set_hl(0, "DapBreakpointCondition", { fg = "#e51400" })
+-- vim.api.nvim_set_hl(0, "DapLogPoint", { fg = "#61afef" })
+--
+-------------------- Debug UI---------------------
 vim.g.mapleader = " "
 vim.opt.number = true
 vim.opt.relativenumber = false
@@ -84,6 +101,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.treesitter.start()
 	end,
 })
+
 -- Plugin Setup
 require("lazy").setup({
 	spec = { { import = "plugins" } },

@@ -11,9 +11,9 @@
     },
     "font": {
       "family": {
-				"material": "Material Symbols Rounded",
-				"mono": "JetBrains Mono NF",
         "sans": "IBM Plex Sans",
+        "mono": "JetBrains Mono NF",
+        "material": "Material Symbols Rounded",
         "clock": "Rubik"
       },
       "size": {
@@ -27,14 +27,14 @@
     },
     "transparency": {
       "enabled": false,
-      "base": 0.01925480077675469,
-      "layers": 0.46220736838319887
+      "base": 0.9,
+      "layers": 0.5
     }
   },
   "general": {
     "apps": {
       "terminal": [
-        "foot"
+        "fish"
       ],
       "audio": [
         "pavucontrol"
@@ -238,7 +238,7 @@
     "actionPrefix": ":",
     "enableDangerousActions": false,
     "dragThreshold": 50,
-    "vimKeybinds": false,
+    "vimKeybinds": true,
     "hiddenApps": [
       "bssh",
       "bvnc",

@@ -31,6 +31,8 @@ end
 
 set -gx EDITOR nvim
 set -gx VISUAL nvim
+set -Ux ATAC_KEY_BINDINGS "$HOME/.config/atac/keybindings.toml"
+set -Ux ATAC_THEME "$HOME/.config/atac/theme.toml"
 
 #command to clean up directory
 alias cleanup='sudo pacman -Rns (pacman -Qdtq); sudo paccache -r; sudo journalctl --vacuum-time=3d'

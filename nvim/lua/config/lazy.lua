@@ -69,6 +69,8 @@ map("n", "<C-k>", "<C-w>k")
 map("n", "<M-j>", "<cmd>cnext<CR>")
 map("n", "<M-k>", "<cmd>cprev<CR>")
 map("n", "<leader>t", ":botright split term://fish<CR>")
+map("n", "<leader>gr", "<Cmd>Git checkout -- .<CR>", { desc = "Git Reset All" })
+map("n", "<leader>gd", "<Cmd>DiffviewOpen -p -- %<CR>", { desc = "Diff Open File" })
 map("n", "<leader>b", function()
 	local script = vim.fn.getcwd() .. "/build.sh"
 	if vim.fn.executable(script) == 1 then

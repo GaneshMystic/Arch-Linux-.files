@@ -101,6 +101,7 @@ return {
 						{ "n", "<leader>s", actions.toggle_stage_entry, { desc = "Stage file" } },
 						{ "n", "<leader>u", actions.unstage_all, { desc = "Unstage all" } },
 						{ "n", "<leader>q", "<Cmd>DiffviewClose<CR>", { desc = "Close diff" } },
+						{ "n", "<leader>u", actions.restore_entry, { desc = "Restore/Revert file" } },
 					},
 					file_history_panel = {
 						{ "n", "r", actions.refresh_files, { desc = "Refresh file history" } },
@@ -109,7 +110,6 @@ return {
 					},
 				},
 			})
-			vim.keymap.set("n", "<leader>gd", "<Cmd>DiffviewOpen -p -- %<CR>", { desc = "Diff Open File" })
 		end,
 	},
 }

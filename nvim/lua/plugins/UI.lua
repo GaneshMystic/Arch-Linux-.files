@@ -224,6 +224,7 @@ return {
 		event = { "BufReadPost", "BufNewFile" },
 		cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
 		build = ":TSUpdate | TSInstallAll",
+		lazy = false,
 		opts = function()
 			return {
 				ensure_installed = {

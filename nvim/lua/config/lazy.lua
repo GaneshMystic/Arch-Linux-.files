@@ -51,6 +51,9 @@ vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
 vim.opt.clipboard = "unnamedplus"
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldlevel = 99
 
 local map = vim.keymap.set
 map("i", "jj", "<Esc>", { silent = true })
@@ -69,8 +72,27 @@ map("n", "<C-k>", "<C-w>k")
 map("n", "<M-j>", "<cmd>cnext<CR>")
 map("n", "<M-k>", "<cmd>cprev<CR>")
 map("n", "<leader>t", ":botright split term://fish<CR>")
-map("n", "<leader>gr", "<Cmd>Git checkout -- .<CR>", { desc = "Git Reset All" })
-map("n", "<leader>gd", "<Cmd>DiffviewOpen -p -- %<CR>", { desc = "Diff Open File" })
+map("n", "<leader>gr", function()
+	local root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+	if vim.v.shell_error ~= 0 then
+		return
+	end
+
+	vim.ui.select({ "Yes", "No" }, { prompt = "Discard all changes in " .. root .. "?" }, function(choice)
+		if choice == "Yes" then
+			vim.fn.system("git -C " .. root .. " checkout -- .")
+			vim.notify("Workspace reset")
+		end
+	end)
+end, { desc = "Git Reset All (Confirm)" })
+map("n", "<leader>gd", function()
+	local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
+	if vim.v.shell_error == 0 then
+		vim.cmd("DiffviewOpen -- " .. vim.fn.fnameescape(git_root))
+	else
+		vim.notify("Not a git repository", vim.log.levels.ERROR)
+	end
+end, { desc = "Diff Open Project Root" })
 map("n", "<leader>b", function()
 	local script = vim.fn.getcwd() .. "/build.sh"
 	if vim.fn.executable(script) == 1 then
